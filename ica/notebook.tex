@@ -1,0 +1,869 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ica\_test-clean}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{a-code-centric-introduction-to-independent-component-analysis-ica}{%
+\section{A Code-Centric Introduction to Independent Component Analysis
+(ICA)}\label{a-code-centric-introduction-to-independent-component-analysis-ica}}
+
+    \emph{This is the first in what I'm hoping to make a series of posts on
+representation learning and unsupervised methods in general. I've
+noticed that there are far fewer resources out there detailing these
+topics than there are for common supervised learning topics, and
+next-to-none that show them off in practice (i.e.~with code) along with
+the underlying math. I'd like these posts to be accessible to a wider
+audience while still providing mathematical intuition.}
+
+    \hypertarget{part-1-motivation-and-introduction}{%
+\subsection{Part 1: Motivation and
+Introduction}\label{part-1-motivation-and-introduction}}
+
+\hypertarget{what-is-ica-and-why-would-we-want-to-do-it}{%
+\paragraph{\texorpdfstring{\emph{What is ICA and why would we want to do
+it?}}{What is ICA and why would we want to do it?}}\label{what-is-ica-and-why-would-we-want-to-do-it}}
+
+    Suppose you are at a banquet with \(n\) total attendees, all
+simultaneously engaged in conversation. Should you stand in the middle
+of this crowd, you will be able to pick out individual voices to tune in
+and out of at will; however, any microphone positioned in the banquet
+hall will record an incomprehensible cacaphony, all \(n\) voices jumbled
+together based on their distance from the device. Say you would like to
+be able to listen to the crowd of voices on a per-speaker basis. With
+only the one recording, you might1 be out of luck. If you have
+recordings from \(n\) microphones each placed at different positions
+rather than one, how can we recover the individual voice signals from
+every attendee?
+
+    What better way to illustrate this than to listen to some recordings!
+(The individual source voice signals were created by Google Translate
+Text-to-Speech and subsequently mixed by me.)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{linalg}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{signal}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{wavfile}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{FastICA}\PY{p}{,} \PY{n}{PCA}
+        \PY{k+kn}{from} \PY{n+nn}{typing} \PY{k}{import} \PY{n}{Tuple}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{glob}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Audio}\PY{p}{,} \PY{n}{display}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{interactiveshell} \PY{k}{import} \PY{n}{InteractiveShell}
+        \PY{n}{InteractiveShell}\PY{o}{.}\PY{n}{ast\PYZus{}node\PYZus{}interactivity} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} create convenience function for plotting and playing audio}
+        \PY{k}{def} \PY{n+nf}{show\PYZus{}audio}\PY{p}{(}\PY{n}{a}\PY{p}{:} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}}\PY{k+kc}{None}\PY{p}{:} \PY{c+c1}{\PYZsh{} a: (sample\PYZus{}rate, audio\PYZus{}array)}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+            \PY{n}{time\PYZus{}axis} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{start}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{stop}\PY{o}{=}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{num}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{time\PYZus{}axis}\PY{p}{,} \PY{n}{a}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (seconds)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amplitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{display}\PY{p}{(}\PY{n}{Audio}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{rate}\PY{o}{=}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} collect all the wav files}
+        \PY{n}{files} \PY{o}{=} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/mixed\PYZus{}data/*.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{samp\PYZus{}rates} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{sound\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} collect sampling frequencies and audio signals}
+        \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{files}\PY{p}{:}
+            \PY{n}{samp\PYZus{}rate}\PY{p}{,} \PY{n}{sound} \PY{o}{=} \PY{n}{wavfile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+            \PY{n}{samp\PYZus{}rates}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{samp\PYZus{}rate}\PY{p}{)}
+            \PY{n}{sound\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sound}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} store as numpy array}
+        \PY{n}{audio\PYZus{}array} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sound\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} listen and visualize sound waves as sanity check}
+        \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{samp\PYZus{}rates}\PY{p}{,} \PY{n}{sound\PYZus{}list}\PY{p}{)}\PY{p}{:}
+            \PY{n}{show\PYZus{}audio}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.lib.display.Audio object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.lib.display.Audio object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.lib.display.Audio object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.lib.display.Audio object>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Clearly, while we can pick out some of the words being said, these audio
+clips are a mess.
+
+    The general problem of determining sources from observed signals without
+labels is aptly called \emph{blind source separation}. This specific
+problem is known as the \emph{cocktail party problem}, and is commonly
+used to motivate ICA from the perspective of blind source separation2.
+
+    Let's make this a little more precise. Suppose we have \(n\) underlying
+sources generating our data, e.g.~the cocktail party attendees, as well
+as \(n\) references for observing our (mixed) data , e.g.~the
+microphones at different distances from our attendees. If our mixed
+observations could reasonably be linear combinations of our underlying
+sources (as would be reasonable here - each microphone's recording is a
+different linear combination of all the voices depending on how far from
+the microphone they were), we can represent the situation for each time
+stamp \(t\) as
+
+\[
+x^{(t)} = As^{(t)}
+\]
+
+where \(x\) is the length-\(n\) vector of our observed values from every
+reference at time \(t\), \(s\) is the (unknown) length-\(n\) vector of
+our underlying source data from every source at time \(t\), and \(A\) is
+the (unknown) matrix representing the linear transformation of the
+sources, known as our \emph{mixing matrix}. Equivalently,
+
+\[
+s^{(t)} = Wx^{(t)}
+\]
+
+where \(W = A^{-1}\). This is the \emph{unmixing matrix} we will try to
+learn in order to recover the sources we want from our observed values.
+
+    Independent component analysis aims to find a set of sources (i.e.~a
+basis) as statistically independent3 as possible. In the case of the
+cocktail party problem, it turns out that different voices talking are
+close enough to statistically independent that ICA will capture them as
+its sources.
+
+    While (as we are about to observe) ICA can indeed be a very powerful
+tool for blind source separation, keep in mind that it also has many
+other applications such as feature extraction. In particular, we might
+be interested in ICA as a tool for transforming our data into another
+form that is more amenable to other algorithms we want to apply; for
+instance, imagine we want to transcribe all the speech from our room
+using some (pretrained) speech-to-text algorithm. In the data's current
+form, this would be hopeless!
+Let's get a sneak peek of the power of ICA using Scikit-Learn's implementation. (This also will serve as a proof of concept that our given dataset _does_ in fact separate well with ICA.)ica = FastICA(n_components=4)S_ = ica.fit_transform(audio_array.T)for row in S_.T:
+    show_audio((samp_rate, row))
+    \hypertarget{part-2-algorithm-and-implementation}{%
+\subsection{Part 2: Algorithm and
+Implementation}\label{part-2-algorithm-and-implementation}}
+
+\hypertarget{how-do-we-do-ica}{%
+\paragraph{\texorpdfstring{\emph{How do we do
+ICA?}}{How do we do ICA?}}\label{how-do-we-do-ica}}
+
+    \hypertarget{deriving-the-algorithm}{%
+\subsubsection{Deriving the Algorithm}\label{deriving-the-algorithm}}
+
+    So we know we want to find components as independent as possible. What
+can we do to find these components? Coming from an optimization/machine
+learning perspective, a first thought might be that we want a cost
+function that will tell us just \emph{how} independent a proposed set of
+components really is. If we had this, we could try to minimize this cost
+function to find the components we want.
+
+There are many ways of viewing ICA (and coming up with this cost
+function) which over time have been proven to be equivalent. Here we
+will use maximum likelihood (per 4, in turn per 5) simply because it is
+a technique that generalizes to many areas of machine learning rather
+than being highly specific to ICA as some alternative approaches are.
+
+    In a few words, maximum likelihood estimation as a general approach aims
+to choose parameters that maximize the probability of the observed data.
+See 4 for a better description.
+
+Let us derive the likelihood for our ICA model. The probability of our
+data, \(p_x(x)\), is
+
+\[
+p_x(x) = |\det(W)|p_s(s)
+\]
+
+by an elementary result from probability theory on linear
+transformations of distributions. Encoding our assumption that the
+source components are independent,
+
+\[
+p_x(x) = |\det(W)|p_s(s) = |\det(W)|\prod_{i=1}^n p_s(s_i)
+\]
+
+It is often easier computationally to consider the log-likelihood
+instead of the likelihood; the parameters maximizing both are the same,
+as the logarithm function is a monotonically increasing function.
+Incorporating all time stamps \(t = \{1,\ldots, T\}\), the
+log-likelihood of our proposed unmixing matrix \(W\) is
+
+\[
+L(W) = \sum_{t=1}^T(\sum_{i=1}^n(\log p_s(s_i) + \log |\det(W)| ))
+\]
+
+Let's save this as a function for later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} we use PyTorch tensors so that later we can easily do gradient descent and other fun things}
+         \PY{k+kn}{import} \PY{n+nn}{torch}
+         \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data} \PY{k}{as} \PY{n+nn}{utils}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{torch}\PY{o}{.}\PY{n}{manual\PYZus{}seed}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <torch.\_C.Generator at 0x7f6a2ba1f1f0>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{log\PYZus{}likelihood}\PY{p}{(}\PY{n}{s\PYZus{}pred}\PY{p}{:} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{,} \PY{n}{W}\PY{p}{:} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}}\PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{:}
+             \PY{k}{return} \PY{n}{torch}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{prob\PYZus{}s}\PY{p}{(}\PY{n}{s\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{torch}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{W}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    It can be proven that (provided everything has mean zero and variance
+one, which we will ensure later) as long as our estimate of \(p_s\) is
+on the same side of Gaussian as the true \(p_s\) - that is, less tailed
+(subgaussian) or more tailed (supergaussian) - ICA will manage to sort
+everything out and correctly find the sources. A supergaussian
+distribution with good derivative properties that works well is the
+logistic distribution, whose probability distribution function is the
+derivative of the sigmoid function 6.
+
+    The pdf of the logistic distribution for a few different parameters.
+From Wikipedia https://en.wikipedia.org/wiki/Logistic\_distribution
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{sigmoid\PYZus{}der}\PY{p}{(}\PY{n}{Y}\PY{p}{:} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}}\PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{:}
+             \PY{n}{a} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+             \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{torch}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{Y}\PY{p}{)}
+             \PY{k}{return} \PY{n}{a}\PY{o}{*}\PY{n}{b}
+         \PY{k}{def} \PY{n+nf}{prob\PYZus{}s}\PY{p}{(}\PY{n}{s}\PY{p}{:} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}}\PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{:}
+             \PY{k}{return} \PY{n}{sigmoid\PYZus{}der}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let's get an intuitive understanding of what these optimal components
+might look like, if they can be found. Observe that the sum of
+non-Gaussian (i.e.~non-normally distributed) independent random
+variables is more Gaussian than its parts. This is guaranteed to us by
+the Central Limit Theorem, which says that the sum of independent random
+variables tends toward a Gaussian distribution7. As our observed signals
+are linear combinations of independent sources, if our sources are
+non-Gaussian, our observations are then more Gaussian than our sources.
+Thus, we could find by picking \(W\) to \emph{minimize the Gaussianity
+of the proposed sources we obtain}. It turns out this is equivalent to
+maximizing likelihood. This formulation also makes clear that our
+algorithm will not work for Gaussian sources (in fact, none will) 8.
+
+    \hypertarget{implementation}{%
+\subsubsection{Implementation}\label{implementation}}
+
+    Now to implementing the algorithm itself! Well, almost. ICA in practice
+requires a couple of preprocessing steps for nice convergence: centering
+and whitening. The first of these is simple; we just subtract each
+element by the mean of the mixed signal it belongs to, thus making new
+signals each with mean zero. We wanted zero mean to ensure our zero-mean
+estimate of the probability of the source data is somewhat reasonable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} zero\PYZhy{}mean input}
+         \PY{n}{X} \PY{o}{=} \PY{n}{audio\PYZus{}array}
+         \PY{n}{n}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}
+         \PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n+nb}{min}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{p}\PY{p}{)}
+         \PY{n}{X\PYZus{}mean} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{X} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{X\PYZus{}mean}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+\end{Verbatim}
+
+
+    The second is slightly more complicated. Whitening in this case is
+defined as conducting a linear transformation of the (now centered) data
+such that our new signals are 1) uncorrelated and 2) each have variance
+one. Intuitively, whitening the input seems to make sense as
+uncorrelatedness is a weaker form of independence. (Setting the variance
+to one follows from the same logic as zeroing the mean above.)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} whitening and preprocessing by PCA (i.e. SVD as our data is mean\PYZhy{}centered)}
+         \PY{c+c1}{\PYZsh{} taken from scikit\PYZhy{}learn\PYZsq{}s source code}
+         \PY{n}{u}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{full\PYZus{}matrices}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{k}{del} \PY{n}{\PYZus{}}
+         \PY{n}{K} \PY{o}{=} \PY{p}{(}\PY{n}{u} \PY{o}{/} \PY{n}{d}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{p}{:}\PY{n}{n\PYZus{}components}\PY{p}{]}
+         \PY{k}{del} \PY{n}{u}\PY{p}{,} \PY{n}{d}
+         \PY{n}{X1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{K}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Here X1 is white and data}
+         \PY{c+c1}{\PYZsh{} in X has been projected onto a subspace by PCA}
+         \PY{n}{X1} \PY{o}{*}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    With our preprocessing of the input complete, we may now proceed to the
+algorithm. We will use stochastic gradient descent to minimize the
+negative log-likelihood (this is equivalent to maximizing the
+likelihood).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{interactiveshell} \PY{k}{import} \PY{n}{InteractiveShell}
+         \PY{n}{InteractiveShell}\PY{o}{.}\PY{n}{ast\PYZus{}node\PYZus{}interactivity} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{last\PYZus{}expr}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{X1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{X1}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{float}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} we permute the input data to better pretend each of our timestamps was drawn independently \PYZhy{} helps with convergence}
+         \PY{n}{X1} \PY{o}{=} \PY{n}{X1}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{torch}\PY{o}{.}\PY{n}{randperm}\PY{p}{(}\PY{n}{X1}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{long}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} initialize weights (unmixing matrix)}
+         \PY{n}{W} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{requires\PYZus{}grad}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{float}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} prepare dataloader}
+         \PY{n}{audio\PYZus{}dataset} \PY{o}{=} \PY{n}{utils}\PY{o}{.}\PY{n}{TensorDataset}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{X1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{audio\PYZus{}dataloader} \PY{o}{=} \PY{n}{utils}\PY{o}{.}\PY{n}{DataLoader}\PY{p}{(}\PY{n}{audio\PYZus{}dataset}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} set learning rate; SGD can be very finicky depending on this parameter}
+         \PY{n}{lr} \PY{o}{=} \PY{l+m+mf}{0.01}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{optimizer} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{optim}\PY{o}{.}\PY{n}{SGD}\PY{p}{(}\PY{p}{[}\PY{n}{W}\PY{p}{]}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{lr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} outer loop: number of times to run through all the samples. In this case, one is enough to get good results.}
+         \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{x\PYZus{}t} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{audio\PYZus{}dataloader}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x\PYZus{}t} \PY{o}{=} \PY{n}{x\PYZus{}t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{x\PYZus{}t} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{x\PYZus{}t}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} forward pass}
+                 \PY{n}{Y\PYZus{}pred} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{mm}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{x\PYZus{}t}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} compute loss}
+                 \PY{c+c1}{\PYZsh{} todo: try computing loss by loading time stamps in as training examples in shuffled order instead of whole matrix at once}
+                 \PY{n}{log\PYZus{}likelihood} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{sigmoid\PYZus{}der}\PY{p}{(}\PY{n}{Y\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{torch}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{W}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}log\PYZus{}likelihood = log\PYZus{}likelihood(Y\PYZus{}pred, W)}
+                 \PY{n}{loss} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{log\PYZus{}likelihood}
+                 \PY{c+c1}{\PYZsh{}print(t, loss)}
+                 
+                 \PY{c+c1}{\PYZsh{} good to check that our values are still sane and nothing has gone horribly wrong}
+                 \PY{k}{if} \PY{n}{torch}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{loss}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)} \PY{o+ow}{or} \PY{n}{loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n}{inf} \PY{o+ow}{or} \PY{n}{loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{inf}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient vanished/exploded}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ded}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     \PY{k}{break}
+         
+                 \PY{n}{prev\PYZus{}loss} \PY{o}{=} \PY{n}{loss}
+                 \PY{c+c1}{\PYZsh{} compute gradient for gradient descent}
+                 \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(W.grad)}
+                 \PY{c+c1}{\PYZsh{}print(t, W.grad)}
+                 \PY{c+c1}{\PYZsh{} recompute W in \PYZsq{}descent\PYZsq{} step of gradient descent}
+                 \PY{n}{optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    We've found our \(W\)! Now all that's left is to transform our mixed
+reference data to our derived sources.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} unwhiten W and calculate source signals}
+         \PY{n}{S\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{K}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{S\PYZus{}2}\PY{o}{.}\PY{n}{T}\PY{p}{:}
+             \PY{n}{show\PYZus{}audio}\PY{p}{(}\PY{p}{(}\PY{n}{samp\PYZus{}rate}\PY{p}{,} \PY{n}{row}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.lib.display.Audio object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.lib.display.Audio object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.lib.display.Audio object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.lib.display.Audio object>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    And there you have it - each separate voice as a separate signal,
+perfect for transcription or whatever other task you'd like to do. (This
+also illustrates another important property of ICA: unlike in other
+methods such as PCA, the order of the components we get out is
+arbitrary. If you listen to each clip, you should be able to figure out
+what order I made them in!)
+
+    I think it's important to note here that there are much better
+algorithms than gradient descent for deriving independent components,
+namely FastICA 9. However, I used gradient descent here very
+intentionally. With the code written down in this form, doesn't it look
+very familiar?
+
+I hope it's clear that this resembles a one-layer neural network with a
+single linear layer and no nonlinearities. We used gradient descent to
+approximate a linear transformation; deeper neural networks with
+nonlinearities can be thought of as the application of gradient descent
+(or whatever optimization algorithm you like best, it doesn't matter) to
+approximate more complex functions. For blind source separation of
+audio, linear mixing (and thus unmixing) seems like a reasonable model,
+but it is easy to imagine other problems in which sources might be
+combined in some way that's highly nonlinear.
+
+My first thought when learning about ICA was that we might want to use a
+proper neural network to learn a more complex invertible unmixing
+function. I think writing the code for linear ICA in this way makes the
+intuition for this idea more obvious than any other presentation I have
+found. Unfortunately other people also thought of this idea and have
+written papers on it, including this nice piece from Yoshua Bengio's lab
+10; fortunately that means it is a good idea, and I have more to
+read/write about. I plan on spending a while playing with this - if I
+get interesting results it might become my next post! For now, I hope
+this served as a good introduction to/refresher of linear ICA.
+
+    \emph{Major credit to Aapo Hyvärinen and Erkki Oja for inspiring this
+post: most of this explanation is based on my understanding of their
+`Independent Component Analysis: Algorithms and Applications'
+(https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf). I also
+referred to Andrew Ng's CS229 lecture notes on ICA as well as the
+Wikipedia page on the subject.}
+
+    \hypertarget{footnotes}{%
+\subsection{Footnotes}\label{footnotes}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  This is an active area of research. For one interesting approach
+  highly related to the form of ICA presented here, see
+  http://www.jmlr.org/papers/v4/jang03a.html.
+\item
+  As in https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf, or
+  http://cs229.stanford.edu/notes/cs229-notes11.pdf, or
+  https://en.wikipedia.org/wiki/Independent\_component\_analysis, or
+  pretty much any other introduction to ICA in existence.
+\item
+  See https://en.wikipedia.org/wiki/Independence\_(probability\_theory)
+  to get a refresher on statistical independence.
+\item
+  Goodfellow, I., Bengio, Y., and Courville, A. (2016). \emph{Deep
+  learning}. Cambridge, MA: MIT Press.
+\item
+  Pham, D.-T., Garrat, P., and Jutten, C. (1992). Separation of a
+  mixture of independent sources through a maximum likelihood approach.
+  In \emph{Proc. EUSIPCO}, pages 771--774.
+\item
+  http://cs229.stanford.edu/notes/cs229-notes11.pdf
+\item
+  http://blog.vctr.me/posts/central-limit-theorem.html provides a really
+  nice visualization of this. Also note that it is not \emph{always}
+  true (the full Central Limit Theorem has some caveats) but for our
+  purposes it is good enough to take it at face value.
+\item
+  This is not exactly true; we can have exactly one be Gaussian, which
+  we can think of as all the Gaussian-ness stuck into one component
+  after the others are optimized for non-Gaussianity. Refer to Hyvärinen
+  again. https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf
+\item
+  Hyvärinen again (in the same citation no less), he came up with this
+  one. In case you haven't noticed, he's sort of a big deal in ICA.
+\item
+  Dinh, L., Krueger, D., and Bengio, Y. (2015). NICE: Non-linear
+  Independent Components Estimation. https://arxiv.org/abs/1410.8516
+  (Nice, isn't it?)
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
